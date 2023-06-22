@@ -1,0 +1,6 @@
+com\example\repository\HospitalRepository.class
+com\example\controller\HospitalController.class
+com\example\model\Hospital.class
+com\example\HospitalManagementApplication.class
+com\example\service\HospitalService.class
+com\example\model\HospitalRequest.class
