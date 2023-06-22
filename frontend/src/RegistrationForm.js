@@ -12,6 +12,7 @@ const RegistrationForm = () => {
   const [country, setCountry] = useState('');
   const [zipCode, setZipCode] = useState('');
   const [password, setPassword] = useState('');
+  const [submissionStatus, setSubmissionStatus] = useState('');
 
   const handleUserTypeChange = (e) => {
     setUserType(e.target.value);
@@ -45,12 +46,11 @@ const RegistrationForm = () => {
     })
       .then(response => {
         // Handle the response
-        console.log(JSON.stringify(formData));
         console.log(response);
+        setSubmissionStatus('Hospital added');
       })
       .catch(error => {
         // Handle the error
-        console.log(JSON.stringify(formData));
         console.error(error);
       });
   };
@@ -119,9 +119,9 @@ const RegistrationForm = () => {
           </div>
         )}
 
-        {userType && (
-          <button type="submit" className="submit-button">Submit</button>
-        )}
+        {submissionStatus && <p>{submissionStatus}</p>}
+
+        <button type="submit" className="submit-button">Submit</button>
       </form>
     </div>
   );
