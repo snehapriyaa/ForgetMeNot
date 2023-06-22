@@ -8,7 +8,7 @@ import java.util.Date;
 @Table(name = "hospitals")
 public class Hospital {
     @Id
-    @Column(name = "HospitalId", length = 10)
+    @Column(name = "hospital_id", length = 10)
     private String hospitalId;
 
     @Column(name = "Name", length = 45)
