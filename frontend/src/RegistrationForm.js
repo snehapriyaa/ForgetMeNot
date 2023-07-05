@@ -22,8 +22,8 @@ const RegistrationForm = () => {
     userName: '',
     department: '',
     dateOfBirth: '',
-    age:'',
-    email:'',
+    age: '',
+    email: '',
     addressLine1: '',
     addressLine2: '',
     state: '',
@@ -47,7 +47,7 @@ const RegistrationForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
+    // ------------add condition for each user types ----------
     // Create an object with the form data
     const formData = {
       email,
@@ -64,22 +64,38 @@ const RegistrationForm = () => {
 
     // Send the form data to your Java backend using fetch or axios
     // Example:
-    fetch('http://localhost:8080/app/addHospital', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(formData)
-    })
-      .then(response => {
-        // Handle the response
-        console.log(response);
-        setSubmissionStatus('Hospital added');
-      })
-      .catch(error => {
-        // Handle the error
-        console.error(error);
-      });
+    switch(userType){
+      case 'hospital':
+        fetch('http://localhost:8080/app/addHospital', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(formData)
+        })
+          .then(response => {
+            // Handle the response
+            console.log(response);
+            setSubmissionStatus('Hospital added');
+          })
+          .catch(error => {
+            // Handle the error
+            console.error(error);
+          });
+          break;
+        case 'doctor':
+          console.log("Doctor Details " + JSON.stringify(doctorValues));
+          break;
+        case 'department':
+          console.log("Department Details");
+          break;
+        case 'LabTech':
+          console.log("Lab Tech details");
+          break;
+      
+    }
+    
+    
   };
 
   return (
@@ -149,65 +165,65 @@ const RegistrationForm = () => {
           <div className="user-details">
             <div className="form-group">
               <label htmlFor="fName">First Name:</label>
-              <input type="text" id="fname" value={doctorValues.firstName} onChange={handleDoctorFormChange} required />
+              <input type="text" id="fname" name="firstName" value={doctorValues.firstName} onChange={handleDoctorFormChange} required />
             </div>
             <div className="form-group">
               <label htmlFor="lName">Last Name:</label>
-              <input type="text" id="lname" value={doctorValues.LastName} onChange={handleDoctorFormChange} required />
+              <input type="text" id="lname" name="lastName" value={doctorValues.lastName} onChange={handleDoctorFormChange} required />
             </div>
             <div className="form-group">
-              <label htmlFor="uName">First Name:</label>
-              <input type="text" id="uname" value={doctorValues.userName} onChange={handleDoctorFormChange} required />
+              <label htmlFor="uName">User Name:</label>
+              <input type="text" id="uname" name="userName" value={doctorValues.userName} onChange={handleDoctorFormChange} required />
             </div>
             <div className="form-group">
               <label htmlFor="department">Department:</label>
-              <input type="text" id="departmentName" value={doctorValues.department} onChange={handleDoctorFormChange} required />
+              <input type="text" id="departmentName" name="department" value={doctorValues.department} onChange={handleDoctorFormChange} required />
             </div>
             <div className="form-group">
               <label htmlFor="dob">Date Of Birth:</label>
-              <input type="text" id="dob" value={doctorValues.dateOfBirth} onChange={handleDoctorFormChange} required />
+              <input type="text" id="dob" name="dateOfBirth" value={doctorValues.dateOfBirth} onChange={handleDoctorFormChange} required />
             </div>
             <div className="form-group">
               <label htmlFor="age">Age:</label>
-              <input type="text" id="age" value={doctorValues.age} onChange={handleDoctorFormChange} required />
+              <input type="number" id="age" name="age" value={doctorValues.age} onChange={handleDoctorFormChange} required />
             </div>
             <div className="form-group">
               <label htmlFor="email">Email:</label>
-              <input type="text" id="dEmail" value={doctorValues.email} onChange={handleDoctorFormChange} required />
+              <input type="text" id="dEmail" name="email" value={doctorValues.email} onChange={handleDoctorFormChange} required />
             </div>
             <div className="form-group">
               <label htmlFor="addressLine1">Address Line 1:</label>
-              <input type="text" id="docAddressLine1" value={doctorValues.addressLine1} onChange={handleDoctorFormChange} required />
+              <input type="text" id="docAddressLine1" name="addressLine1" value={doctorValues.addressLine1} onChange={handleDoctorFormChange} required />
             </div>
 
             <div className="form-group">
               <label htmlFor="addressLine2">Address Line 2:</label>
-              <input type="text" id="docAddressLine2" value={doctorValues.addressLine2} onChange={handleDoctorFormChange} />
+              <input type="text" id="docAddressLine2" name="addressLine2" value={doctorValues.addressLine2} onChange={handleDoctorFormChange} />
             </div>
 
             <div className="form-group">
               <label htmlFor="state">State:</label>
-              <input type="text" id="docState" value={doctorValues.state} onChange={handleDoctorFormChange} required />
+              <input type="text" id="docState" name="state" value={doctorValues.state} onChange={handleDoctorFormChange} required />
             </div>
 
             <div className="form-group">
               <label htmlFor="city">City:</label>
-              <input type="text" id="docCity" value={doctorValues.city} onChange={handleDoctorFormChange} required />
+              <input type="text" id="docCity" name="city" value={doctorValues.city} onChange={handleDoctorFormChange} required />
             </div>
 
             <div className="form-group">
               <label htmlFor="country">Country:</label>
-              <input type="text" id="docCountry" value={doctorValues.country} onChange={handleDoctorFormChange} required />
+              <input type="text" id="docCountry" name="country" value={doctorValues.country} onChange={handleDoctorFormChange} required />
             </div>
 
             <div className="form-group">
               <label htmlFor="zipCode">Zip Code:</label>
-              <input type="text" id="zipCode" value={doctorValues.zipCode} onChange={handleDoctorFormChange} required />
+              <input type="text" id="zipCode" name="zipCode" value={doctorValues.zipCode} onChange={handleDoctorFormChange} required />
             </div>
 
             <div className="form-group">
               <label htmlFor="createdAt">Created At:</label>
-              <input type="text" id="createdAt" value={doctorValues.createdAt} onChange={handleDoctorFormChange} required />
+              <input type="text" id="createdAt" name="createdAt" value={doctorValues.createdAt} onChange={handleDoctorFormChange} required />
             </div>
 
           </div>
