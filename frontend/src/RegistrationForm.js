@@ -52,12 +52,12 @@ const RegistrationForm = () => {
   const [labWorkerValues, setLabWorkerValues] = useState({
     departmentID: '',
     userName: '',
-    firstName:'',
+    firstName: '',
     lastName: '',
-    password:'',
+    password: '',
     dob: '',
     age: '',
-    email:'',
+    email: '',
     addressLine1: '',
     addressLine2: '',
     state: '',
@@ -139,7 +139,7 @@ const RegistrationForm = () => {
       case 'department':
         console.log("Department Details " + JSON.stringify(departmentValues));
         break;
-      case 'LabTech':
+      case 'labTech':
         console.log("Lab Tech details " + JSON.stringify(labWorkerValues));
         break;
 
@@ -280,68 +280,127 @@ const RegistrationForm = () => {
         )}
         {userType === 'department' && (
           <div className="user-details">
-          <div className="form-group">
-            <label htmlFor="dName">Department Name:</label>
-            <input type="text" id="dname" name="departmentName" value={departmentValues.departmentName} onChange={handleDepartmentFormChange} required />
-          </div>
-          <div className="form-group">
-            <label htmlFor="email">Department Email:</label>
-            <input type="email" id="dEmail" name="departmentEmail" value={departmentValues.departmentEmail} onChange={handleDepartmentFormChange} required />
-          </div>
-          <div className="form-group">
-            <label htmlFor="uName">User Name:</label>
-            <input type="text" id="uName" name="userName" value={departmentValues.userName} onChange={handleDepartmentFormChange} required />
-          </div>
-          <div className="form-group">
-            <label htmlFor="password">Password:</label>
-            <input type="password" id="deptPassword" name="password" value={departmentValues.password} onChange={handleDepartmentFormChange} required />
-          </div>
-          <div className="form-group">
-            <label htmlFor="hospitalID">Hospital ID:</label>
-            <input type="text" id="hospitalID" name="hospitalID" value={departmentValues.hospitalID} onChange={handleDepartmentFormChange} required />
-          </div>
-          <div className="form-group">
-            <label htmlFor="addressLine1">Address Line 1:</label>
-            <input type="text" id="deptAddressLine1" name="addressLine1" value={departmentValues.addressLine1} onChange={handleDepartmentFormChange} required />
-          </div>
+            <div className="form-group">
+              <label htmlFor="dName">Department Name:</label>
+              <input type="text" id="dname" name="departmentName" value={departmentValues.departmentName} onChange={handleDepartmentFormChange} required />
+            </div>
+            <div className="form-group">
+              <label htmlFor="email">Department Email:</label>
+              <input type="email" id="dEmail" name="departmentEmail" value={departmentValues.departmentEmail} onChange={handleDepartmentFormChange} required />
+            </div>
+            <div className="form-group">
+              <label htmlFor="uName">User Name:</label>
+              <input type="text" id="uName" name="userName" value={departmentValues.userName} onChange={handleDepartmentFormChange} required />
+            </div>
+            <div className="form-group">
+              <label htmlFor="password">Password:</label>
+              <input type="password" id="deptPassword" name="password" value={departmentValues.password} onChange={handleDepartmentFormChange} required />
+            </div>
+            <div className="form-group">
+              <label htmlFor="hospitalID">Hospital ID:</label>
+              <input type="text" id="hospitalID" name="hospitalID" value={departmentValues.hospitalID} onChange={handleDepartmentFormChange} required />
+            </div>
+            <div className="form-group">
+              <label htmlFor="addressLine1">Address Line 1:</label>
+              <input type="text" id="deptAddressLine1" name="addressLine1" value={departmentValues.addressLine1} onChange={handleDepartmentFormChange} required />
+            </div>
 
-          <div className="form-group">
-            <label htmlFor="addressLine2">Address Line 2:</label>
-            <input type="text" id="deptAddressLine2" name="addressLine2" value={departmentValues.addressLine2} onChange={handleDepartmentFormChange} />
-          </div>
+            <div className="form-group">
+              <label htmlFor="addressLine2">Address Line 2:</label>
+              <input type="text" id="deptAddressLine2" name="addressLine2" value={departmentValues.addressLine2} onChange={handleDepartmentFormChange} />
+            </div>
 
-          <div className="form-group">
-            <label htmlFor="state">State:</label>
-            <input type="text" id="deptState" name="state" value={departmentValues.state} onChange={handleDepartmentFormChange} required />
-          </div>
+            <div className="form-group">
+              <label htmlFor="state">State:</label>
+              <input type="text" id="deptState" name="state" value={departmentValues.state} onChange={handleDepartmentFormChange} required />
+            </div>
 
-          <div className="form-group">
-            <label htmlFor="city">City:</label>
-            <input type="text" id="deptCity" name="city" value={departmentValues.city} onChange={handleDepartmentFormChange} required />
-          </div>
+            <div className="form-group">
+              <label htmlFor="city">City:</label>
+              <input type="text" id="deptCity" name="city" value={departmentValues.city} onChange={handleDepartmentFormChange} required />
+            </div>
 
-          <div className="form-group">
-            <label htmlFor="country">Country:</label>
-            <input type="text" id="deptCountry" name="country" value={departmentValues.country} onChange={handleDepartmentFormChange} required />
-          </div>
+            <div className="form-group">
+              <label htmlFor="country">Country:</label>
+              <input type="text" id="deptCountry" name="country" value={departmentValues.country} onChange={handleDepartmentFormChange} required />
+            </div>
 
-          <div className="form-group">
-            <label htmlFor="zipCode">Zip Code:</label>
-            <input type="text" id="deptZipCode" name="zipCode" value={departmentValues.zipCode} onChange={handleDepartmentFormChange} required />
-          </div>
+            <div className="form-group">
+              <label htmlFor="zipCode">Zip Code:</label>
+              <input type="text" id="deptZipCode" name="zipCode" value={departmentValues.zipCode} onChange={handleDepartmentFormChange} required />
+            </div>
 
-          <div className="form-group">
-            <label htmlFor="createdAt">Created At:</label>
-            <input type="text" id="deptCreatedAt" name="createdAt" value={departmentValues.createdAt} onChange={handleDepartmentFormChange} required />
-          </div>
+            <div className="form-group">
+              <label htmlFor="createdAt">Created At:</label>
+              <input type="text" id="deptCreatedAt" name="createdAt" value={departmentValues.createdAt} onChange={handleDepartmentFormChange} required />
+            </div>
 
-        </div>
+          </div>
         )}
         {userType === 'labTech' && (
           <div className="user-details">
             <div className="form-group">
-              <label htmlFor="name">Name:</label>
-              <input type="text" id="name" value={name} onChange={(e) => setName(e.target.value)} required />
+              <label htmlFor="departmentID">Department ID:</label>
+              <input type="text" id="departmentID" name="departmentID" value={labWorkerValues.departmentID} onChange={handleLabWorkerFormChange} required />
+            </div>
+            <div className="form-group">
+              <label htmlFor="fName">First Name:</label>
+              <input type="text" id="labFname" name="firstName" value={labWorkerValues.firstName} onChange={handleLabWorkerFormChange} required />
+            </div>
+            <div className="form-group">
+              <label htmlFor="lName">Last Name:</label>
+              <input type="text" id="labLname" name="lastName" value={labWorkerValues.lastName} onChange={handleLabWorkerFormChange} required />
+            </div>
+            <div className="form-group">
+              <label htmlFor="uName">User Name:</label>
+              <input type="text" id="labUname" name="userName" value={labWorkerValues.userName} onChange={handleLabWorkerFormChange} required />
+            </div>
+            
+            <div className="form-group">
+              <label htmlFor="dob">Date Of Birth:</label>
+              <input type="text" id="LabDob" name="dob" value={labWorkerValues.dob} onChange={handleLabWorkerFormChange} required />
+            </div>
+            <div className="form-group">
+              <label htmlFor="age">Age:</label>
+              <input type="number" id="LabAge" name="age" value={labWorkerValues.age} onChange={handleLabWorkerFormChange} required />
+            </div>
+            <div className="form-group">
+              <label htmlFor="email">Email:</label>
+              <input type="text" id="labEmail" name="email" value={labWorkerValues.email} onChange={handleLabWorkerFormChange} required />
+            </div>
+            <div className="form-group">
+              <label htmlFor="addressLine1">Address Line 1:</label>
+              <input type="text" id="labAddressLine1" name="addressLine1" value={labWorkerValues.addressLine1} onChange={handleLabWorkerFormChange} required />
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="addressLine2">Address Line 2:</label>
+              <input type="text" id="labAddressLine2" name="addressLine2" value={labWorkerValues.addressLine2} onChange={handleLabWorkerFormChange} />
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="state">State:</label>
+              <input type="text" id="labState" name="state" value={labWorkerValues.state} onChange={handleLabWorkerFormChange} required />
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="city">City:</label>
+              <input type="text" id="labCity" name="city" value={labWorkerValues.city} onChange={handleLabWorkerFormChange} required />
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="country">Country:</label>
+              <input type="text" id="labCountry" name="country" value={labWorkerValues.country} onChange={handleLabWorkerFormChange} required />
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="zipCode">Zip Code:</label>
+              <input type="text" id="labZipCode" name="zipCode" value={labWorkerValues.zipCode} onChange={handleLabWorkerFormChange} required />
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="createdAt">Created At:</label>
+              <input type="text" id="labCreatedAt" name="createdAt" value={labWorkerValues.createdAt} onChange={handleLabWorkerFormChange} required />
             </div>
 
           </div>
