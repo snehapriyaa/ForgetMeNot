@@ -33,6 +33,41 @@ const RegistrationForm = () => {
     createdAt: ''
   });
 
+  const [departmentValues, setDepartmentValues] = useState({
+    hospitalID: '',
+    userName: '',
+    password: '',
+    departmentName: '',
+    departmentEmail: '',
+    addressLine1: '',
+    addressLine2: '',
+    state: '',
+    city: '',
+    country: '',
+    zipCode: '',
+    createdAt: ''
+
+  })
+
+  const [labWorkerValues, setLabWorkerValues] = useState({
+    departmentID: '',
+    userName: '',
+    firstName:'',
+    lastName: '',
+    password:'',
+    dob: '',
+    age: '',
+    email:'',
+    addressLine1: '',
+    addressLine2: '',
+    state: '',
+    city: '',
+    country: '',
+    zipCode: '',
+    createdAt: ''
+
+  })
+
   const handleUserTypeChange = (e) => {
     setUserType(e.target.value);
   };
@@ -40,6 +75,21 @@ const RegistrationForm = () => {
   const handleDoctorFormChange = (e) => {
     const { name, value } = e.target;
     setDoctorValues((prevValues) => ({
+      ...prevValues,
+      [name]: value,
+    }));
+  };
+  const handleDepartmentFormChange = (e) => {
+    const { name, value } = e.target;
+    setDepartmentValues((prevValues) => ({
+      ...prevValues,
+      [name]: value,
+    }));
+  };
+
+  const handleLabWorkerFormChange = (e) => {
+    const { name, value } = e.target;
+    setLabWorkerValues((prevValues) => ({
       ...prevValues,
       [name]: value,
     }));
@@ -64,7 +114,7 @@ const RegistrationForm = () => {
 
     // Send the form data to your Java backend using fetch or axios
     // Example:
-    switch(userType){
+    switch (userType) {
       case 'hospital':
         fetch('http://localhost:8080/app/addHospital', {
           method: 'POST',
@@ -82,20 +132,20 @@ const RegistrationForm = () => {
             // Handle the error
             console.error(error);
           });
-          break;
-        case 'doctor':
-          console.log("Doctor Details " + JSON.stringify(doctorValues));
-          break;
-        case 'department':
-          console.log("Department Details");
-          break;
-        case 'LabTech':
-          console.log("Lab Tech details");
-          break;
-      
+        break;
+      case 'doctor':
+        console.log("Doctor Details " + JSON.stringify(doctorValues));
+        break;
+      case 'department':
+        console.log("Department Details " + JSON.stringify(departmentValues));
+        break;
+      case 'LabTech':
+        console.log("Lab Tech details " + JSON.stringify(labWorkerValues));
+        break;
+
     }
-    
-    
+
+
   };
 
   return (
@@ -230,36 +280,62 @@ const RegistrationForm = () => {
         )}
         {userType === 'department' && (
           <div className="user-details">
-            <div className="form-group">
-              <label htmlFor="name">Department Name:</label>
-              <input type="text" id="dName" value={name} onChange={(e) => setName(e.target.value)} required />
-            </div>
-            <div className="form-group">
-              <label htmlFor="name">Department Email:</label>
-              <input type="email" id="dEmail" value={name} onChange={(e) => setName(e.target.value)} required />
-            </div>
-            <div className="form-group">
-              <label htmlFor="name">Department Name:</label>
-              <input type="text" id="name" value={name} onChange={(e) => setName(e.target.value)} required />
-            </div>
-            <div className="form-group">
-              <label htmlFor="name">Department Name:</label>
-              <input type="text" id="name" value={name} onChange={(e) => setName(e.target.value)} required />
-            </div>
-            <div className="form-group">
-              <label htmlFor="name">Department Name:</label>
-              <input type="text" id="name" value={name} onChange={(e) => setName(e.target.value)} required />
-            </div>
-            <div className="form-group">
-              <label htmlFor="name">Department Name:</label>
-              <input type="text" id="name" value={name} onChange={(e) => setName(e.target.value)} required />
-            </div>
-            <div className="form-group">
-              <label htmlFor="name">Department Name:</label>
-              <input type="text" id="name" value={name} onChange={(e) => setName(e.target.value)} required />
-            </div>
-
+          <div className="form-group">
+            <label htmlFor="dName">Department Name:</label>
+            <input type="text" id="dname" name="departmentName" value={departmentValues.departmentName} onChange={handleDepartmentFormChange} required />
           </div>
+          <div className="form-group">
+            <label htmlFor="email">Department Email:</label>
+            <input type="email" id="dEmail" name="departmentEmail" value={departmentValues.departmentEmail} onChange={handleDepartmentFormChange} required />
+          </div>
+          <div className="form-group">
+            <label htmlFor="uName">User Name:</label>
+            <input type="text" id="uName" name="userName" value={departmentValues.userName} onChange={handleDepartmentFormChange} required />
+          </div>
+          <div className="form-group">
+            <label htmlFor="password">Password:</label>
+            <input type="password" id="deptPassword" name="password" value={departmentValues.password} onChange={handleDepartmentFormChange} required />
+          </div>
+          <div className="form-group">
+            <label htmlFor="hospitalID">Hospital ID:</label>
+            <input type="text" id="hospitalID" name="hospitalID" value={departmentValues.hospitalID} onChange={handleDepartmentFormChange} required />
+          </div>
+          <div className="form-group">
+            <label htmlFor="addressLine1">Address Line 1:</label>
+            <input type="text" id="deptAddressLine1" name="addressLine1" value={departmentValues.addressLine1} onChange={handleDepartmentFormChange} required />
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="addressLine2">Address Line 2:</label>
+            <input type="text" id="deptAddressLine2" name="addressLine2" value={departmentValues.addressLine2} onChange={handleDepartmentFormChange} />
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="state">State:</label>
+            <input type="text" id="deptState" name="state" value={departmentValues.state} onChange={handleDepartmentFormChange} required />
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="city">City:</label>
+            <input type="text" id="deptCity" name="city" value={departmentValues.city} onChange={handleDepartmentFormChange} required />
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="country">Country:</label>
+            <input type="text" id="deptCountry" name="country" value={departmentValues.country} onChange={handleDepartmentFormChange} required />
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="zipCode">Zip Code:</label>
+            <input type="text" id="deptZipCode" name="zipCode" value={departmentValues.zipCode} onChange={handleDepartmentFormChange} required />
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="createdAt">Created At:</label>
+            <input type="text" id="deptCreatedAt" name="createdAt" value={departmentValues.createdAt} onChange={handleDepartmentFormChange} required />
+          </div>
+
+        </div>
         )}
         {userType === 'labTech' && (
           <div className="user-details">
