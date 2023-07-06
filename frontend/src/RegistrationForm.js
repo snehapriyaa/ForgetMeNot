@@ -23,7 +23,7 @@ const RegistrationForm = () => {
     department: '',
     dateOfBirth: '',
     age: '',
-    email: '',
+    email: email,
     addressLine1: '',
     addressLine2: '',
     state: '',
@@ -137,12 +137,16 @@ const RegistrationForm = () => {
           });
         break;
       case 'doctor':
+        doctorValues.email = formData.email;
         console.log("Doctor Details " + JSON.stringify(doctorValues));
         break;
       case 'department':
+        departmentValues.email = formData.email;
+        departmentValues.departmentEmail = formData.email;
         console.log("Department Details " + JSON.stringify(departmentValues));
         break;
       case 'labTech':
+        labWorkerValues.email = formData.email;
         console.log("Lab Tech details " + JSON.stringify(labWorkerValues));
         break;
 
