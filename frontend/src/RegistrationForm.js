@@ -36,7 +36,7 @@ const RegistrationForm = () => {
   });
 
   const [departmentValues, setDepartmentValues] = useState({
-    hospitalName: '',
+    hospitalName: [],
     userName: '',
     password: '',
     departmentName: '',
@@ -97,6 +97,20 @@ const RegistrationForm = () => {
       [name]: value,
     }));
   };
+
+  useEffect(() => {
+    if (userType === 'doctor') {
+      // Fetch hospital names
+      axios.get('http://localhost:8080/api/hospitals')
+        .then(response => {
+          departmentValues.hospitalName = response.data;
+          // setHospitalNames(response.data);
+        })
+        .catch(error => {
+          console.error('Error fetching hospital names:', error);
+        });
+    }
+  }, [userType]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -283,10 +297,10 @@ const RegistrationForm = () => {
               <input type="text" id="zipCode" name="zipCode" value={doctorValues.zipCode} onChange={handleDoctorFormChange} required />
             </div>
 
-            <div className="form-group">
+            {/* <div className="form-group">
               <label htmlFor="createdAt">Created At:</label>
               <input type="text" id="createdAt" name="createdAt" value={doctorValues.createdAt} onChange={handleDoctorFormChange} required />
-            </div>
+            </div> */}
             <div className="form-group">
               <label htmlFor="password">Password:</label>
               <input type="password" id="docPassword" name="password" value={doctorValues.password} onChange={handleDoctorFormChange} required />
@@ -308,10 +322,16 @@ const RegistrationForm = () => {
               <label htmlFor="uName">User Name:</label>
               <input type="text" id="uName" name="userName" value={departmentValues.userName} onChange={handleDepartmentFormChange} required />
             </div> */}
-            
+
             <div className="form-group">
               <label htmlFor="hospitalName">Hospital Name:</label>
-              <input type="text" id="hospitalName" name="hospitalName" value={departmentValues.hospitalName} onChange={handleDepartmentFormChange} required />
+              <select id="hospitalName" name="hospitalName" value={departmentValues.hospitalName} onChange={handleDepartmentFormChange} required>
+                <option value="">Select Hospital Name</option>
+                {departmentValues.hospitalName.map(name => (
+                  <option key={name}>{name}</option>
+                ))}
+              </select>
+              {/* <input type="text" id="hospitalName" name="hospitalName" value={departmentValues.hospitalName} onChange={handleDepartmentFormChange} required /> */}
             </div>
             <div className="form-group">
               <label htmlFor="addressLine1">Address Line 1:</label>
@@ -343,10 +363,10 @@ const RegistrationForm = () => {
               <input type="text" id="deptZipCode" name="zipCode" value={departmentValues.zipCode} onChange={handleDepartmentFormChange} required />
             </div>
 
-            <div className="form-group">
+            {/* <div className="form-group">
               <label htmlFor="createdAt">Created At:</label>
               <input type="text" id="deptCreatedAt" name="createdAt" value={departmentValues.createdAt} onChange={handleDepartmentFormChange} required />
-            </div>
+            </div> */}
             <div className="form-group">
               <label htmlFor="password">Password:</label>
               <input type="password" id="deptPassword" name="password" value={departmentValues.password} onChange={handleDepartmentFormChange} required />
@@ -375,7 +395,7 @@ const RegistrationForm = () => {
               <label htmlFor="uName">User Name:</label>
               <input type="text" id="labUname" name="userName" value={labWorkerValues.userName} onChange={handleLabWorkerFormChange} required />
             </div> */}
-            
+
             <div className="form-group">
               <label htmlFor="dob">Date Of Birth:</label>
               <input type="date" id="LabDob" name="dob" value={labWorkerValues.dob} onChange={handleLabWorkerFormChange} required />
@@ -418,10 +438,10 @@ const RegistrationForm = () => {
               <input type="text" id="labZipCode" name="zipCode" value={labWorkerValues.zipCode} onChange={handleLabWorkerFormChange} required />
             </div>
 
-            <div className="form-group">
+            {/* <div className="form-group">
               <label htmlFor="createdAt">Created At:</label>
               <input type="text" id="labCreatedAt" name="createdAt" value={labWorkerValues.createdAt} onChange={handleLabWorkerFormChange} required />
-            </div>
+            </div> */}
 
             <div className="form-group">
               <label htmlFor="password">Password:</label>
