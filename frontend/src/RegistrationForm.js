@@ -184,12 +184,41 @@ const RegistrationForm = () => {
           });
         break;
       case 'doctor':
-        doctorValues.email = formData.email;
+        fetch('http://localhost:8080/app/addDoctor', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(doctorValues)
+        })
+          .then(response => {
+            // Handle the response
+            console.log(response);
+            setSubmissionStatus('Doctor added');
+          })
+          .catch(error => {
+            // Handle the error
+            console.error(error);
+          });
         console.log("Doctor Details " + JSON.stringify(doctorValues));
         break;
       case 'department':
-        departmentValues.email = formData.email;
-        departmentValues.departmentEmail = formData.email;
+        fetch('http://localhost:8080/app/addDepartment', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(departmentValues)
+        })
+          .then(response => {
+            // Handle the response
+            console.log(response);
+            setSubmissionStatus('Department added');
+          })
+          .catch(error => {
+            // Handle the error
+            console.error(error);
+          });
         console.log("Department Details " + JSON.stringify(departmentValues));
         break;
       case 'labTech':
