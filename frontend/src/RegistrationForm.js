@@ -23,18 +23,20 @@ const RegistrationForm = () => {
     department: '',
     dateOfBirth: '',
     age: '',
-    email: '',
+    email: email,
     addressLine1: '',
     addressLine2: '',
     state: '',
     city: '',
     country: '',
     zipCode: '',
-    createdAt: ''
+    createdAt: '',
+    password: '',
+    hospitalName: ''
   });
 
   const [departmentValues, setDepartmentValues] = useState({
-    hospitalID: '',
+    hospitalName: '',
     userName: '',
     password: '',
     departmentName: '',
@@ -50,7 +52,7 @@ const RegistrationForm = () => {
   })
 
   const [labWorkerValues, setLabWorkerValues] = useState({
-    departmentID: '',
+    departmentName: '',
     userName: '',
     firstName: '',
     lastName: '',
@@ -64,7 +66,8 @@ const RegistrationForm = () => {
     city: '',
     country: '',
     zipCode: '',
-    createdAt: ''
+    createdAt: '',
+    hospitalName: ''
 
   })
 
@@ -172,6 +175,7 @@ const RegistrationForm = () => {
         console.log("Department Details " + JSON.stringify(departmentValues));
         break;
       case 'labTech':
+        labWorkerValues.email = formData.email;
         console.log("Lab Tech details " + JSON.stringify(labWorkerValues));
         break;
 
@@ -253,9 +257,14 @@ const RegistrationForm = () => {
               <label htmlFor="lName">Last Name:</label>
               <input type="text" id="lname" name="lastName" value={doctorValues.lastName} onChange={handleDoctorFormChange} required />
             </div>
-            <div className="form-group">
+            {/* <div className="form-group">
               <label htmlFor="uName">User Name:</label>
               <input type="text" id="uname" name="userName" value={doctorValues.userName} onChange={handleDoctorFormChange} required />
+            </div> */}
+            {/* ----------------------------------------------- get hospital list, load dept list based on hosp-----------------------------------*/}
+            <div className="form-group">
+              <label htmlFor="hospital">Hospital Name:</label>
+              <input type="text" id="hospitalName" name="hospitalName" value={doctorValues.hospitalName} onChange={handleDoctorFormChange} required />
             </div>
             <div className="form-group">
               <label htmlFor="department">Department:</label>
@@ -263,16 +272,16 @@ const RegistrationForm = () => {
             </div>
             <div className="form-group">
               <label htmlFor="dob">Date Of Birth:</label>
-              <input type="text" id="dob" name="dateOfBirth" value={doctorValues.dateOfBirth} onChange={handleDoctorFormChange} required />
+              <input type="date" id="dob" name="dateOfBirth" value={doctorValues.dateOfBirth} onChange={handleDoctorFormChange} required />
             </div>
             <div className="form-group">
               <label htmlFor="age">Age:</label>
               <input type="number" id="age" name="age" value={doctorValues.age} onChange={handleDoctorFormChange} required />
             </div>
-            <div className="form-group">
+            {/* <div className="form-group">
               <label htmlFor="email">Email:</label>
               <input type="text" id="dEmail" name="email" value={doctorValues.email} onChange={handleDoctorFormChange} required />
-            </div>
+            </div> */}
             <div className="form-group">
               <label htmlFor="addressLine1">Address Line 1:</label>
               <input type="text" id="docAddressLine1" name="addressLine1" value={doctorValues.addressLine1} onChange={handleDoctorFormChange} required />
@@ -307,6 +316,10 @@ const RegistrationForm = () => {
               <label htmlFor="createdAt">Created At:</label>
               <input type="text" id="createdAt" name="createdAt" value={doctorValues.createdAt} onChange={handleDoctorFormChange} required />
             </div>
+            <div className="form-group">
+              <label htmlFor="password">Password:</label>
+              <input type="password" id="docPassword" name="password" value={doctorValues.password} onChange={handleDoctorFormChange} required />
+            </div>
 
           </div>
         )}
@@ -316,21 +329,18 @@ const RegistrationForm = () => {
               <label htmlFor="dName">Department Name:</label>
               <input type="text" id="dname" name="departmentName" value={departmentValues.departmentName} onChange={handleDepartmentFormChange} required />
             </div>
-            <div className="form-group">
+            {/* <div className="form-group">
               <label htmlFor="email">Department Email:</label>
               <input type="email" id="dEmail" name="departmentEmail" value={departmentValues.departmentEmail} onChange={handleDepartmentFormChange} required />
             </div>
             <div className="form-group">
               <label htmlFor="uName">User Name:</label>
               <input type="text" id="uName" name="userName" value={departmentValues.userName} onChange={handleDepartmentFormChange} required />
-            </div>
+            </div> */}
+            
             <div className="form-group">
-              <label htmlFor="password">Password:</label>
-              <input type="password" id="deptPassword" name="password" value={departmentValues.password} onChange={handleDepartmentFormChange} required />
-            </div>
-            <div className="form-group">
-              <label htmlFor="hospitalID">Hospital ID:</label>
-              <input type="text" id="hospitalID" name="hospitalID" value={departmentValues.hospitalID} onChange={handleDepartmentFormChange} required />
+              <label htmlFor="hospitalName">Hospital Name:</label>
+              <input type="text" id="hospitalName" name="hospitalName" value={departmentValues.hospitalName} onChange={handleDepartmentFormChange} required />
             </div>
             <div className="form-group">
               <label htmlFor="addressLine1">Address Line 1:</label>
@@ -366,14 +376,21 @@ const RegistrationForm = () => {
               <label htmlFor="createdAt">Created At:</label>
               <input type="text" id="deptCreatedAt" name="createdAt" value={departmentValues.createdAt} onChange={handleDepartmentFormChange} required />
             </div>
-
+            <div className="form-group">
+              <label htmlFor="password">Password:</label>
+              <input type="password" id="deptPassword" name="password" value={departmentValues.password} onChange={handleDepartmentFormChange} required />
+            </div>
           </div>
         )}
         {userType === 'labTech' && (
           <div className="user-details">
             <div className="form-group">
-              <label htmlFor="departmentID">Department ID:</label>
-              <input type="text" id="departmentID" name="departmentID" value={labWorkerValues.departmentID} onChange={handleLabWorkerFormChange} required />
+              <label htmlFor="hospitalName">Hospital Name:</label>
+              <input type="text" id="hospitalName" name="hospitalName" value={labWorkerValues.hospitalName} onChange={handleLabWorkerFormChange} required />
+            </div>
+            <div className="form-group">
+              <label htmlFor="departmentName">Department Name:</label>
+              <input type="text" id="departmentName" name="departmentName" value={labWorkerValues.departmentName} onChange={handleLabWorkerFormChange} required />
             </div>
             <div className="form-group">
               <label htmlFor="fName">First Name:</label>
@@ -383,23 +400,23 @@ const RegistrationForm = () => {
               <label htmlFor="lName">Last Name:</label>
               <input type="text" id="labLname" name="lastName" value={labWorkerValues.lastName} onChange={handleLabWorkerFormChange} required />
             </div>
-            <div className="form-group">
+            {/* <div className="form-group">
               <label htmlFor="uName">User Name:</label>
               <input type="text" id="labUname" name="userName" value={labWorkerValues.userName} onChange={handleLabWorkerFormChange} required />
-            </div>
+            </div> */}
             
             <div className="form-group">
               <label htmlFor="dob">Date Of Birth:</label>
-              <input type="text" id="LabDob" name="dob" value={labWorkerValues.dob} onChange={handleLabWorkerFormChange} required />
+              <input type="date" id="LabDob" name="dob" value={labWorkerValues.dob} onChange={handleLabWorkerFormChange} required />
             </div>
             <div className="form-group">
               <label htmlFor="age">Age:</label>
               <input type="number" id="LabAge" name="age" value={labWorkerValues.age} onChange={handleLabWorkerFormChange} required />
             </div>
-            <div className="form-group">
+            {/* <div className="form-group">
               <label htmlFor="email">Email:</label>
               <input type="text" id="labEmail" name="email" value={labWorkerValues.email} onChange={handleLabWorkerFormChange} required />
-            </div>
+            </div> */}
             <div className="form-group">
               <label htmlFor="addressLine1">Address Line 1:</label>
               <input type="text" id="labAddressLine1" name="addressLine1" value={labWorkerValues.addressLine1} onChange={handleLabWorkerFormChange} required />
@@ -435,6 +452,10 @@ const RegistrationForm = () => {
               <input type="text" id="labCreatedAt" name="createdAt" value={labWorkerValues.createdAt} onChange={handleLabWorkerFormChange} required />
             </div>
 
+            <div className="form-group">
+              <label htmlFor="password">Password:</label>
+              <input type="password" id="labPassword" name="password" value={labWorkerValues.password} onChange={handleLabWorkerFormChange} required />
+            </div>
           </div>
         )}
 
