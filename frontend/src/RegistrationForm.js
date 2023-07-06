@@ -101,43 +101,19 @@ const RegistrationForm = () => {
   };
 
   useEffect(() => {
-    if (userType === 'department') {
+    if (userType === 'department' || userType === 'doctor' || userType === 'labTech') {
       // Fetch hospital names
-      fetch('http://localhost:8080/api/hospitals', {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json'
+      fetch('http://localhost:8080/app/hospitals')
+      .then(response => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          throw new Error('Error fetching hospital names');
         }
-        // body: JSON.stringify(formData)
       })
-        // axios.get('http://localhost:8080/api/hospitals')
-        .then(response => {
-          // departmentValues.hospitalName = response.data;
-          setHospitalNames(response.data);
-        })
-        .catch(error => {
-          console.error('Error fetching hospital names:', error);
-        });
-    }
-    if (userType === 'doctor' || userType === 'labTech') {
-      // Fetch hospital names
-      const fetchHospitalNames = fetch('http://localhost:8080/api/hospitals');
-      const fetchDepartmentNames = fetch('http://localhost:8080/api/departments');
-
-      Promise.all([fetchHospitalNames, fetchDepartmentNames])
-        .then(([response1, response2]) => {
-          if (response1.ok && response2.ok) {
-            return Promise.all([response1.json(), response2.json()]);
-          } else {
-            throw new Error('Error fetching data');
-          }
-        })
-        .then(([data1, data2]) => {
-          // Process the retrieved data
-          setHospitalNames(data1);
-          setDepartmentNames(data2);
-          // Process other data
-        })
+      .then(data => {
+        setHospitalNames(data);
+      })
         .catch(error => {
           console.error('Error fetching hospital names:', error);
         });
@@ -145,6 +121,32 @@ const RegistrationForm = () => {
 
   }, [userType]);
 
+  
+  useEffect(() => {
+    let fetch_url='http://localhost:8080/api/departments'
+    if (doctorValues.hospitalName){ 
+      fetch_url = `http://localhost:8080/api/getDepartmentByHospitalName?hospitalName=${doctorValues.hospitalName}`
+    } else if(labWorkerValues.hospitalName){
+      fetch_url = `http://localhost:8080/api/getDepartmentByHospitalName?hospitalName=${labWorkerValues.hospitalName}`
+    }
+      fetch(`${fetch_url}`)
+        .then(response => {
+          if (response.ok) {
+            return response.json();
+          } else {
+            throw new Error('Error fetching department names');
+          }
+        })
+        .then(data => {
+          setDepartmentNames(data);
+        })
+        .catch(error => {
+          console.error(error);
+        });
+  }, [doctorValues.hospitalName, labWorkerValues.hospitalName]);
+
+  
+  
   const handleSubmit = (e) => {
     e.preventDefault();
     // ------------add condition for each user types ----------
@@ -175,7 +177,8 @@ const RegistrationForm = () => {
         })
           .then(response => {
             // Handle the response
-            console.log(response);
+            //console.log(response);
+            console.log(response.data);
             setSubmissionStatus('Hospital added');
           })
           .catch(error => {
@@ -232,6 +235,9 @@ const RegistrationForm = () => {
   };
 
   return (
+    <div>
+            <div class="logo">iGem 2023</div>
+    
     <div className="registration-container">
       <h1 className="registration-title">User Registration</h1>
       <form className="registration-form" onSubmit={handleSubmit}>
@@ -387,14 +393,6 @@ const RegistrationForm = () => {
               <label htmlFor="dName">Department Name:</label>
               <input type="text" id="dname" name="departmentName" value={departmentValues.departmentName} onChange={handleDepartmentFormChange} required />
             </div>
-            {/* <div className="form-group">
-              <label htmlFor="email">Department Email:</label>
-              <input type="email" id="dEmail" name="departmentEmail" value={departmentValues.departmentEmail} onChange={handleDepartmentFormChange} required />
-            </div>
-            <div className="form-group">
-              <label htmlFor="uName">User Name:</label>
-              <input type="text" id="uName" name="userName" value={departmentValues.userName} onChange={handleDepartmentFormChange} required />
-            </div> */}
 
             <div className="form-group">
               <label htmlFor="hospitalName">Hospital Name:</label>
@@ -538,6 +536,7 @@ const RegistrationForm = () => {
 
         <button type="submit" className="submit-button">Submit</button>
       </form>
+    </div>
     </div>
   );
 };

@@ -1,52 +1,102 @@
+body {
+  background-color: #87ceeb;
+  /* Sky blue color */
+  background-image: url('hospital-management.png');
+  /* Replace 'hospital-background.jpg' with your actual image file */
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  background-attachment: fixed;
+  margin: 0;
+  padding: 0;
+}
+
+.logo {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  color: #fff;
+  font-size: 36px;
+  /* Increase the font size for a bigger impact */
+  font-weight: bold;
+  /* Make the text bolder */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+  /* Add a text shadow for an extravagant effect */
+}
+
+
 .registration-container {
-    max-width: 400px;
-    margin: 0 auto;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    background-color: #f5f5f5;
-  }
-  
-  .registration-title {
-    text-align: center;
-  }
-  
-  .registration-form {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .form-group {
-    margin-bottom: 15px;
-  }
-  
-  label {
-    font-weight: bold;
-  }
-  
-  input,
-  select {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-  }
-  
-  .hospital-details {
-    margin-top: 20px;
-  }
-  
-  .submit-button {
-    width: 100%;
-    padding: 10px;
-    border: none;
-    border-radius: 5px;
-    background-color: #4caf50;
-    color: #fff;
-    cursor: pointer;
-  }
-  
-  .submit-button:hover {
-    background-color: #45a049;
-  }
-  
+  max-width: 400px;
+  margin: 20px auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: rgba(0, 0, 0, 0.6);
+  /* Translucent dark background */
+}
+
+.registration-title {
+  text-align: center;
+  color: #fff;
+  /* White text color */
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.registration-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+label {
+  font-weight: bold;
+  color: #fff;
+  /* White text color */
+}
+
+input,
+select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+  /* Ensure consistent box sizing */
+}
+
+.hospital-details {
+  margin-top: 20px;
+}
+
+.submit-button {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: #87ceeb;
+  /* Sky blue color */
+  color: #fff;
+  /* White text color */
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  /* Add transition effect */
+}
+
+.submit-button:hover {
+  background-color: #3d90ce;
+  /* Darker submit button color */
+  transform: scale(1.05);
+  /* Add scale effect on hover */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  /* Add box shadow effect on hover */
+}
+
+.submit-button:active {
+  background-color: #346fba;
+  /* Darker submit button color when clicked */
+}
