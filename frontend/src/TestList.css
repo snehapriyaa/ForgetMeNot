@@ -1,0 +1,29 @@
+.list {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .list-item {
+    cursor: pointer;
+    padding: 8px;
+    margin-bottom: 8px;
+    background-color: #20b1ca;
+    border-radius: 4px;
+    transition: background-color 0.2s ease-in-out;
+    display: flex;
+    align-items: center;
+  }
+  
+  .test-id {
+    font-weight: bold;
+    margin-right: 8px;
+  }
+  
+  .test-name {
+    flex: 1;
+  }
+  
+  .list-item:hover {
+    background-color: #51adeb;
+  }
+  

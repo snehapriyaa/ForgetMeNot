@@ -1,0 +1,30 @@
+.container {
+    
+        max-width: 800px;
+        margin: 20px auto;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background-color: rgba(0, 0, 0, 0.6);
+        /* Translucent dark background */
+      }
+  
+  .content {
+    max-width: 800px;
+    padding: 20px;
+    text-align: center;
+    color: #fff;
+  }
+  
+  body {
+    background-color: #87ceeb;
+    /* Sky blue color */
+    background-image: url('hospital-management.png');
+    /* Replace 'hospital-background.jpg' with your actual image file */
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    background-attachment: fixed;
+    margin: 0;
+    padding: 0;
+  }

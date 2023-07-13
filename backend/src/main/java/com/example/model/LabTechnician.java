@@ -1,19 +1,14 @@
 package com.example.model;
+import javax.persistence.*;
+import java.util.Date;
 
-import java.sql.Date;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
 
 @Entity
-@Table(name = "LabWorkers")
-public class LabWorker {
-
+@Table(name = "lab_technicians")
+public class LabTechnician {
     @Id
-    @Column(name = "LabWorkerId", length = 10)
-    private String labWorkerId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @Column(name = "DepartmentId", length = 10)
     private String departmentId;
@@ -57,14 +52,7 @@ public class LabWorker {
     // Generate getters and setters
 
     // You can add constructors, equals/hashCode, toString methods if needed
-    public String getLabWorkerId() {
-        return labWorkerId;
-    }
-
-    public void setLabWorkerId(String labWorkerId) {
-        this.labWorkerId = labWorkerId;
-    }
-
+    
     public String getDepartmentId() {
         return departmentId;
     }
@@ -152,4 +140,17 @@ public class LabWorker {
     public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
     }
+
+    // Other fields and relationships
+
+    // Getters and setters
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    // Other getters and setters
 }

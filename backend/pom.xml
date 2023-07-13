@@ -15,6 +15,15 @@
 		<spring-cloud.version>2022.0.3</spring-cloud.version>
     </properties>
 
+    <!-- <repositories>
+        <repository>
+            <id>google-cloud-repository</id>
+            <name>Google Cloud Repository</name>
+            <url>https://maven.pkg.dev/google-cloud-platform/google-cloud-java</url>
+        </repository>
+    </repositories> -->
+
+
     <dependencies>
         <!-- Spring Boot Starter -->
         <dependency>
@@ -48,11 +57,16 @@
             <artifactId>spring-cloud-gcp-starter-sql-mysql</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>com.google.cloud</groupId>
+            <artifactId>spring-cloud-gcp-starter-storage</artifactId>
+        </dependency>
+
         <!-- MySQL Connector -->
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <version>8.0.27</version>
+            <version>8.0.30</version>
         </dependency>
 
         <dependency>
@@ -79,6 +93,20 @@
             <artifactId>slf4j-api</artifactId>
             <version>1.7.25</version>
         </dependency>
+        
+        <!-- https://mvnrepository.com/artifact/com.google.apis/google-api-services-healthcare -->
+        <dependency>
+            <groupId>com.google.apis</groupId>
+            <artifactId>google-api-services-healthcare</artifactId>
+            <version>v1beta1-rev20211105-1.32.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.google.api-client</groupId>
+            <artifactId>google-api-client</artifactId>
+            <version>1.33.0</version>
+        </dependency>
+
 
 
     </dependencies>
