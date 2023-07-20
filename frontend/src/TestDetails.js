@@ -4,6 +4,7 @@ import { Card, CardContent, Typography, TextField, Button } from '@mui/material'
 const TestDetails = ({ test }) => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [comments, setComments] = useState('');
+  const [message, setMessage] = useState('');
 
   const handleFileChange = (e) => {
     setSelectedFile(e.target.files[0]);
@@ -26,14 +27,24 @@ const TestDetails = ({ test }) => {
     fetch(`http://localhost:8080/app/tests/${test.id}/upload`, {
       method: 'POST',
       body: formData,
-    })
-      .then((response) => response.json())
+    })      
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error('Error uploading file. Please try again.');
+        }
+        console.log(response);
+        return response.json();
+      })
       .then((data) => {
         console.log('File uploaded successfully');
         console.log(data);
+
+        // Update the message state with the response data
+        setMessage(data.message);
       })
       .catch((error) => {
         console.error('Error uploading file:', error);
+        setMessage(error.message || 'Error uploading file. Please try again.');
       });
   };
 
@@ -76,6 +87,7 @@ const TestDetails = ({ test }) => {
           </Button>
         </CardContent>
       </Card>
+      {message && <div>{message}</div>}
     </div>
   );
 };

@@ -6,6 +6,8 @@ import com.google.auth.oauth2.GoogleCredentials;
 import com.google.api.client.http.HttpRequestInitializer;
 import com.google.auth.http.HttpCredentialsAdapter;
 import com.google.api.client.http.HttpTransport;
+import com.google.api.client.http.HttpRequest;
+import com.google.api.client.http.HttpResponse;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.Json;
 import com.google.api.client.json.JsonFactory;
@@ -16,6 +18,13 @@ import com.google.api.services.healthcare.v1beta1.model.ListFhirStoresResponse;
 import com.google.api.services.healthcare.v1beta1.CloudHealthcareScopes;
 import com.google.api.services.healthcare.v1beta1.model.FhirStore;
 import com.google.api.services.healthcare.v1beta1.model.HttpBody;
+//import com.google.api.services.healthcare.v1beta1.model.Resource;
+import com.google.api.client.http.GenericUrl;
+import com.google.api.client.http.HttpContent;
+import com.google.api.client.http.ByteArrayContent;
+import com.google.api.services.healthcare.v1beta1.model.SearchResourcesRequest;
+//import com.google.api.services.healthcare.v1beta1.model.SearchResourcesResponse;
+
 
 // import com.google.api.services.healthcare.v1.model.Parameters;
 // import com.google.api.services.healthcare.v1beta1.model.Resource;
@@ -29,6 +38,8 @@ import org.springframework.web.server.ResponseStatusException;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 //import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+
 
 import com.google.api.client.http.HttpHeaders;
 
@@ -131,34 +142,45 @@ public ResponseEntity<String> uploadFhirFile(@PathVariable Long id, @RequestPara
 
         // Convert the byte array to a string
         String fileData = new String(file.getBytes());
-        String restype = "DiagnosticReport";
 
         // Create the FHIR resource to upload
         Gson gson = new Gson();
         JsonObject jsonObject = gson.fromJson(fileData, JsonObject.class);
-        String diagnosticReportJsonString = gson.toJson(jsonObject);
-
-        // Create the FHIR resource to upload
-        HttpBody httpBody = new HttpBody();
-        httpBody.setContentType("application/fhir+json;charset=utf-8");
-        httpBody.setData(fileData);
-
-        System.out.println("Request Body: " + httpBody);
-
-        String parent = String.format("projects/%s/locations/%s/datasets/%s/fhirStores/%s",
-                projectId, locationId, datasetId, fhirStoreId);
-
-        //System.out.println("Request body: "+ httpBody);
-        // Upload the FHIR resource to the FHIR store
-        client.projects().locations().datasets().fhirStores().fhir().create(parent, restype, httpBody).execute();
+        String fhirFileContent = gson.toJson(jsonObject);
 
        
-        // Update the test with the comments
-        test.setComments(comments);
-        test.setCompleted(true);
-        testService.saveTest(test);
+        String parent = String.format("projects/%s/locations/%s/datasets/%s/fhirStores/%s",
+                projectId, locationId, datasetId, fhirStoreId);
+        String restype = jsonObject.get("resourceType").getAsString();
 
-        return ResponseEntity.ok("FHIR file uploaded successfully");
+        String contentType = "application/fhir+json;charset=utf-8";
+        HttpContent httpContent = new ByteArrayContent(contentType, fhirFileContent.getBytes());
+        
+        // Make the API call to upload the FHIR resource
+        HttpRequest request = client.getRequestFactory().buildPostRequest(
+                new GenericUrl("https://healthcare.googleapis.com/v1beta1/" + parent + "/fhir/" + restype),
+                httpContent
+        );
+        
+        HttpResponse response = request.execute();
+
+        // Handle the response if needed
+        int statusCode = response.getStatusCode();
+        if (statusCode == 201) {
+            System.out.println("FHIR resource uploaded successfully.");
+            test.setComments(comments);
+            test.setCompleted(true);
+            testService.saveTest(test);
+            return ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON).body("FHIR file uploaded successfully");
+        } else {
+            System.err.println("Error uploading FHIR resource. Status code: " + statusCode);
+            System.err.println("Response content: " + response.parseAsString());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error occurred during FHIR file upload");
+        }
+       
+        // Update the test with the comments
+
+        
     } catch (IOException | GeneralSecurityException e) {
         e.printStackTrace();
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error occurred during FHIR file upload");
@@ -167,7 +189,7 @@ public ResponseEntity<String> uploadFhirFile(@PathVariable Long id, @RequestPara
 
 
     // @GetMapping("/{id}/files")
-    // public List<String> getFhirFiles(@PathVariable String id) {
+    // public List<Resource> getFhirFiles(@PathVariable String id) {
     //     try {
     //         // Create the Healthcare API client
     //         CloudHealthcare client = createCloudHealthcareClient();
@@ -176,25 +198,34 @@ public ResponseEntity<String> uploadFhirFile(@PathVariable Long id, @RequestPara
     //         String parent = String.format("projects/%s/locations/%s/datasets/%s/fhirStores/%s",
     //         projectId, locationId, datasetId, fhirStoreId);
 
-    //         Parameters parameters = new Parameters();
-    //         parameters.set("type", new com.google.api.services.healthcare.v1beta1.model.StringList().setValues(Collections.singletonList(resourceType)));
+    //         SearchResourcesRequest request = new SearchResourcesRequest();
+    //         // You can add more search parameters as needed.
+    //         // For example, to search for all Patient resources:
+    //         // request.setResourceType("Patient");
 
-    //         HttpBody httpBody = new HttpBody();
-    //         httpBody.setParameters(parameters);
+    //         // Execute the search request
+    //         SearchResourcesResponse response = client.projects().locations().datasets()
+    //         .fhirStores().fhir().search(parent, request).execute();
 
-    //         List<Resource> resources = client.projects().locations().datasets()
-    //             .fhirStores().fhir().resource().search(parent, httpBody).execute().getResources();
+    //         // // Process the search response
+    //         List<Resource> resources = response.getResources();
+    //         // List<String> resourceIds = new ArrayList<>();
+            
+    //         // if (resources != null) {
+    //         //     for (Resource resource : resources) {
+    //         //         resourceIds.add(resource.getId());
+    //         //         // Process other resource properties as needed.
+    //         //     }
+    //         // } else {
+    //         //     System.out.println("No resources found.");
+    //         // }
 
-    //         List<String> resourceIds = new ArrayList<>();
-    //         for (Resource resource : resources) {
-    //             resourceIds.add(resource.getId());
-    //         }
-
-    //         return resourceIds;
+    //         return resources;
             
     //     } catch (IOException | GeneralSecurityException e) {
-    //         e.printStackTrace();
-    //         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+    //         e.printStackTrace();     
+    //         return Collections.emptyList();
+    //         //return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
     //     }
     // }
 
